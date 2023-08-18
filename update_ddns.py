@@ -7,9 +7,10 @@ import json
 
 zone_id         = "[insert cloudflare zone id]"
 api_token       = "[insert cloudflare API token]"
-user_email      = "[insert cloudflare email]"
-record_names    = ["record.name.one", "record.name.two"]
-log_file_path	= "/location/of/log.file"
+user_email      = "[insert cloudflare user email]"
+record_names    = ["name.record.one", "name.record.two"]
+log_file_path   = "/path/to/log/file.txt"
+log_file_path_change = "/path/to/log/file/2.txt"
 
 # Authentication header using API token
 auth_headers = {
@@ -86,6 +87,12 @@ if __name__ == "__main__":
     if dns_record_list[0].status_code == 200:
         # Check whether DNS Record is same with current IP Address
         if dns_record_list[0].json()['result'][0]['content'] != ip_addr:
+
+            logmsg_last_change = "DDNS last changed on " + str(time_and_date)
+            logmsg_last_change += "\nCurrent Public IP Address  : " + ip_addr
+            logmsg_last_change += "\nCloudflare DNS Record      : " + dns_record_list[0].json()['result'][0]['content']
+            write_to_file(log_file_path_change, logmsg_last_change)
+
             for dns_record in dns_record_list:
                 set_dns_response = set_dns_ip(ip_addr, dns_record.json()['result'][0]['id'], dns_record.json()['result'][0]['name'])
                 logmsg = "\n" + str(json.dumps(set_dns_response.json(), indent=2))
