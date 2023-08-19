@@ -1,4 +1,10 @@
-# Cloudflare_DDNS_Updater
-Python script to update Cloudflare DNS record
+# DDNS Scripts
+Python scripts to stuff related to DDNS
 
-Usage: copy the script and setup a cronjob to run the script every 15 minutes, check output file for last executed status
+Usage: Run scheduled cronjobs for the scripts, and check output files for execution status
+
+update_ddns.py
+Updates Cloudflare DNS records by checking resolved IP and Cloudflare DNS record, using Cloudflare API token
+
+tunnel_ddns.py
+Restarts wireguard service if there is a DNS record change
