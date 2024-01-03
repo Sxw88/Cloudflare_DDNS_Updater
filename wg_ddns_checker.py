@@ -5,6 +5,9 @@ import datetime
 import socket
 
 # This script should be run as root!
+# This script checks the IP address of a Wireguard peer which uses DDNS
+# Whenever the IP address of the peer changes, the script will restart 
+# the Wireguard service
 
 # public key of wireguard peer (to parse after getting output of wg command)
 peer_pubkey = '[insert wireguard peer public key]'
